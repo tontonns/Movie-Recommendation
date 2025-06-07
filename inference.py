@@ -40,7 +40,7 @@ st.title('Netflix\'s Movie Recommendation')
 datasetPipeline = joblib.load('datasetPipeline.pkl')
 
 def main():
-    clean_dataset = datasetPipeline.named_steps['clean_dataset']
+    clean_dataset = datasetPipeline.named_steps['sorted_dataset']
     dropdown_value = clean_dataset['title'].tolist()
     
     user_input = st.selectbox('Choose a movie: ', dropdown_value)
