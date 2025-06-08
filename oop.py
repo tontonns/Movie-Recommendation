@@ -39,7 +39,8 @@ class DataHandler:
 
   def dump_pickle(self):
     pipeline = Pipeline([
-        ('clean_dataset', self.sorted_dataset),
+        ('clean_dataset', self.dataset),
+        ('sorted_dataset', self.sorted_dataset),
         ('selected_features', self.selected_features)
     ])
     pkl.dump(pipeline, open('datasetPipeline.pkl', 'wb'))
