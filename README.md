@@ -1,6 +1,5 @@
-# Model Deployment Netflix Project
-
-Proyek ini bertujuan untuk membangun dan menerapkan sistem rekomendasi film dan acara TV berdasarkan konten yang ada di Netflix. Proyek ini dikerjakan oleh Group 4:
+Model Deployment Netflix Project
+This project aims to build and deploy a content-based recommendation system for movies and TV shows available on Netflix. This project was created by Group 4:
 
 2702223084 - Jonathan Christopher Gani
 
@@ -8,66 +7,58 @@ Proyek ini bertujuan untuk membangun dan menerapkan sistem rekomendasi film dan 
 
 2702258333 - Hartono Yaputra
 
-## 1. Pembersihan Data & Analisis Data Eksplorasi (EDA)
+1. Data Cleaning & Exploratory Data Analysis (EDA)
+The initial phase of this project involves data cleaning and analysis to ensure the data used is of high quality and ready for modeling. This process includes several steps:
 
-Tahap awal dari proyek ini adalah pembersihan dan analisis data untuk memastikan data yang digunakan berkualitas baik dan siap untuk pemodelan. Proses ini mencakup beberapa langkah:
+Loading Data: The dataset used is netflix_titles.csv, which contains information about movies and TV shows on Netflix.
 
-Memuat Data: Dataset yang digunakan adalah netflix_titles.csv yang berisi informasi tentang film dan acara TV di Netflix.
+Data Format Conversion: The date_added column's format was converted to a datetime data type for easier processing.
 
-Konversi Format Data: Kolom date_added diubah formatnya menjadi tipe data tanggal (datetime) untuk memudahkan pemrosesan.
+Removing Identifier Column: The show_id column was removed as it is irrelevant for the modeling process and can complicate the detection of duplicate data.
 
-Menghapus Kolom Identifier: Kolom show_id dihapus karena tidak relevan untuk proses pemodelan dan dapat menyulitkan deteksi data duplikat.
+Checking and Fixing Column Values: Several inconsistent values in the rating column (e.g., '74 min', '84 min') were identified and removed from the dataset.
 
-Pemeriksaan dan Perbaikan Nilai Kolom: Beberapa nilai yang tidak sesuai pada kolom rating (misalnya, '74 min', '84 min') diidentifikasi dan dihapus dari dataset.
+Removing Unused Columns: Columns such as director, country, date_added, and duration were removed because this recommendation system focuses on content attributes like cast, listed_in, and description.
 
-Menghapus Kolom yang Tidak Digunakan: Kolom seperti director, country, date_added, dan duration dihapus karena sistem rekomendasi ini akan fokus pada atribut konten seperti cast, listed_in, dan description.
+Handling Missing Values: Rows with empty values in the cast and rating columns were deleted because they are difficult to impute and could introduce bias into the model.
 
-Penanganan Nilai yang Hilang: Baris data yang memiliki nilai kosong pada kolom cast dan rating dihapus karena sulit untuk diimputasi dan dapat menyebabkan bias pada model.
+Data Distribution Analysis: A distribution analysis was performed on numerical (release_year) and categorical (type, rating) columns to understand the data's characteristics.
 
-Analisis Distribusi Data: Dilakukan analisis distribusi pada kolom numerik (release_year) dan kategorikal (type, rating) untuk memahami karakteristik data.
+After the cleaning process, the dataset is ready for the next stage: building the recommendation system.
 
-Setelah melalui proses pembersihan, dataset siap untuk tahap selanjutnya, yaitu pembangunan sistem rekomendasi.
+2. Content-Based Recommendation System
+This recommendation system is built using a Content-Based Filtering approach, which recommends items based on the similarity of their attributes. The steps are as follows:
 
-## 2. Sistem Rekomendasi Berbasis Konten
+Feature Selection: Relevant features such as listed_in (genre), title, rating, and description are combined into a single text string for each item.
 
-Sistem rekomendasi ini dibangun dengan pendekatan Content-Based Filtering, yang merekomendasikan item berdasarkan kemiripan atributnya. Langkah-langkahnya adalah sebagai berikut:
+Text Vectorization with TF-IDF: A TfidfVectorizer is used to convert the combined text data into a numerical representation (vector). This process also ignores common English words (stop words) that do not provide significant information.
 
-Pemilihan Fitur: Fitur-fitur yang relevan seperti listed_in (genre), title (judul), rating, dan description (deskripsi) digabungkan menjadi satu teks tunggal untuk setiap item.
+Cosine Similarity Calculation: cosine_similarity is calculated from the TF-IDF matrix to measure how similar one movie/TV show is to another. This similarity score ranges from 0 (not similar) to 1 (very similar).
 
-Vektorisasi Teks dengan TF-IDF: TfidfVectorizer digunakan untuk mengubah data teks gabungan menjadi representasi numerik (vektor). Proses ini juga mengabaikan kata-kata umum dalam bahasa Inggris (stop words) yang tidak memberikan banyak informasi.
+3. Recommendation System Implementation
+A function named recommend_system was created to generate recommendations. This function takes the title of a movie/TV show as input and returns a list of the 5 most similar items based on their cosine similarity scores.
 
-Perhitungan Kemiripan Kosinus: cosine_similarity dihitung dari matriks TF-IDF untuk mengukur seberapa mirip satu film/acara TV dengan yang lainnya. Skor kemiripan ini berkisar antara 0 (tidak mirip) hingga 1 (sangat mirip).
-
-## 3. Implementasi Sistem Rekomendasi
- 
-Sebuah fungsi bernama recommend_system dibuat untuk menghasilkan rekomendasi. Fungsi ini menerima judul film/acara TV sebagai masukan dan memberikan daftar 5 item yang paling mirip berdasarkan skor kemiripan kosinus.
-
-Contoh penggunaan:
+Usage example:
 
 ```bash
-
-Python
-
-# Memberikan rekomendasi untuk "InuYasha the Movie 4: Fire on the Mystic Island"
+# Get recommendations for "InuYasha the Movie 4: Fire on the Mystic Island"
 recommend_system('InuYasha the Movie 4: Fire on the Mystic Island')
 
-# Memberikan rekomendasi untuk "Naruto Shippuden the Movie: Blood Prison"
+# Get recommendations for "Naruto Shippuden the Movie: Blood Prison"
 recommend_system('Naruto Shippuden the Movie: Blood Prison')
-Hasil dari fungsi ini adalah sebuah DataFrame yang berisi judul, tipe, pemeran, rating, genre, dan skor kemiripan dari item yang direkomendasikan.
-
 ```
 
+The output of this function is a DataFrame containing the title, type, cast, rating, genre, and similarity score of the recommended items.
 
-## 4. Persiapan Deployment Model
+4. Model Deployment Preparation
+To prepare the model for use in other applications (e.g., a web app), all essential components of the recommendation system are saved into a file named netflix_recommender.pkl using the pickle library. The saved components include:
 
-Untuk mempersiapkan model agar dapat digunakan di aplikasi lain (misalnya, aplikasi web), semua komponen penting dari sistem rekomendasi disimpan ke dalam sebuah file netflix_recommender.pkl menggunakan library pickle. Komponen yang disimpan meliputi:
+tfidf: The fitted TfidfVectorizer object.
 
-tfidf: Objek TfidfVectorizer yang sudah di-fit.
+cosine_sim: The cosine similarity matrix.
 
-cosine_sim: Matriks kemiripan kosinus.
+dataset: The cleaned DataFrame.
 
-dataset: DataFrame yang sudah dibersihkan.
+indices: The mapping between titles and their corresponding indices in the dataset.
 
-indices: Pemetaan antara judul dan indeks dalam dataset.
-
-Dengan menyimpan komponen-komponen ini, model dapat dimuat kembali dan digunakan untuk memberikan rekomendasi tanpa perlu melatih ulang dari awal.
+By saving these components, the model can be reloaded and used to provide recommendations without needing to be retrained from scratch.
