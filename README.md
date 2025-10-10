@@ -8,7 +8,7 @@ This project aims to build and deploy a content-based recommendation system for 
 
 2702258333 - Hartono Yaputra
 
-## 1. Data Cleaning & Exploratory Data Analysis (EDA)
+## 1. Data Cleaning & Exploratory Data Analysis (EDA) 🧹
 
 The initial phase of this project involves data cleaning and analysis to ensure the data used is of high quality and ready for modeling. This process includes several steps:
 
@@ -28,7 +28,7 @@ Data Distribution Analysis: A distribution analysis was performed on numerical (
 
 After the cleaning process, the dataset is ready for the next stage: building the recommendation system.
 
-## 2. Content-Based Recommendation System
+## 2. Content-Based Recommendation System ⚙️
 
 This recommendation system is built using a Content-Based Filtering approach, which recommends items based on the similarity of their attributes. The steps are as follows:
 
@@ -38,7 +38,7 @@ Text Vectorization with TF-IDF: A TfidfVectorizer is used to convert the combine
 
 Cosine Similarity Calculation: cosine_similarity is calculated from the TF-IDF matrix to measure how similar one movie/TV show is to another. This similarity score ranges from 0 (not similar) to 1 (very similar).
 
-## 3. Recommendation System Implementation
+## 3. Recommendation System Implementation 🧑‍💻
 
 A function named recommend_system was created to generate recommendations. This function takes the title of a movie/TV show as input and returns a list of the 5 most similar items based on their cosine similarity scores.
 
@@ -54,7 +54,7 @@ recommend_system('Naruto Shippuden the Movie: Blood Prison')
 
 The output of this function is a DataFrame containing the title, type, cast, rating, genre, and similarity score of the recommended items.
 
-## 4. Model Deployment Preparation
+## 4. Model Deployment Preparation ⚒️
 
 To prepare the model for use in other applications (e.g., a web app), all essential components of the recommendation system are saved into a file named netflix_recommender.pkl using the pickle library. The saved components include:
 
@@ -67,3 +67,7 @@ dataset: The cleaned DataFrame.
 indices: The mapping between titles and their corresponding indices in the dataset.
 
 By saving these components, the model can be reloaded and used to provide recommendations without needing to be retrained from scratch.
+
+## 5. Deploying the Model
+
+After we finish the deployment preparation step we can finally move to the deployment step. In this project we're going to deploy the program to Streamlit. first, we have to upload all the codes and requirements for easier deployment to github then we can open streamlit and upload our repository so Streamlit can download the requirements we set earlier. The python version we're using in this deployment step is Python 3.9, after all the requirements are met we can use the program. You can access the link here: movie-recommendation-md.streamlit.app
