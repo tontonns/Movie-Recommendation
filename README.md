@@ -44,6 +44,8 @@ Sebuah fungsi bernama recommend_system dibuat untuk menghasilkan rekomendasi. Fu
 
 Contoh penggunaan:
 
+```bash
+
 Python
 
 # Memberikan rekomendasi untuk "InuYasha the Movie 4: Fire on the Mystic Island"
@@ -52,6 +54,8 @@ recommend_system('InuYasha the Movie 4: Fire on the Mystic Island')
 # Memberikan rekomendasi untuk "Naruto Shippuden the Movie: Blood Prison"
 recommend_system('Naruto Shippuden the Movie: Blood Prison')
 Hasil dari fungsi ini adalah sebuah DataFrame yang berisi judul, tipe, pemeran, rating, genre, dan skor kemiripan dari item yang direkomendasikan.
+
+```
 
 ## 4. Persiapan Deployment Model
 
