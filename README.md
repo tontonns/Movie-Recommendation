@@ -57,6 +57,7 @@ Hasil dari fungsi ini adalah sebuah DataFrame yang berisi judul, tipe, pemeran, 
 
 ```
 
+
 ## 4. Persiapan Deployment Model
 
 Untuk mempersiapkan model agar dapat digunakan di aplikasi lain (misalnya, aplikasi web), semua komponen penting dari sistem rekomendasi disimpan ke dalam sebuah file netflix_recommender.pkl menggunakan library pickle. Komponen yang disimpan meliputi:
