@@ -68,6 +68,6 @@ indices: The mapping between titles and their corresponding indices in the datas
 
 By saving these components, the model can be reloaded and used to provide recommendations without needing to be retrained from scratch.
 
-## 5. Deploying the Model
+## 5. Deploying the Model 🚀
 
 After we finish the deployment preparation step we can finally move to the deployment step. In this project we're going to deploy the program to Streamlit. first, we have to upload all the codes and requirements for easier deployment to github then we can open streamlit and upload our repository so Streamlit can download the requirements we set earlier. The python version we're using in this deployment step is Python 3.9, after all the requirements are met we can use the program. You can access the link here: https://movie-recommendation-md.streamlit.app
